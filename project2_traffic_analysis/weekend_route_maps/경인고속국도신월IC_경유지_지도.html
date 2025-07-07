@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_84032f7ea14be6ebe4c85b66c7e12ab6 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+    <div style="position: fixed; 
+                top: 10px; right: 10px; width: 200px; height: auto; 
+                background-color: white; border:2px solid grey; z-index:9999; 
+                font-size:14px; padding: 10px">
+    <h4>경인고속국도(신월IC)</h4>
+    <p><i class="fa fa-home" style="color:red"></i> 출발지 (5개)</p>
+    <p><i class="fa fa-road" style="color:orange"></i> 경유지</p>
+    <p><i class="fa fa-flag-checkered" style="color:blue"></i> 도착지 (5개)</p>
+    <hr>
+    <p><strong>실선:</strong> 출발→경유</p>
+    <p><strong>점선:</strong> 경유→도착</p>
+    <p><small>각 경로별로 다른 색상</small></p>
+    </div>
+    
+    
+            <div class="folium-map" id="map_84032f7ea14be6ebe4c85b66c7e12ab6" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_84032f7ea14be6ebe4c85b66c7e12ab6 = L.map(
+                "map_84032f7ea14be6ebe4c85b66c7e12ab6",
+                {
+                    center: [37.52788423935813, 126.83024980839431],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 10,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_60755793ea58c05c7953c9bdf07f0691 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_60755793ea58c05c7953c9bdf07f0691.addTo(map_84032f7ea14be6ebe4c85b66c7e12ab6);
+        
+    
+            var poly_line_4cc8d5bbc6e17d9b725f5c535f0ad0f6 = L.polyline(
+                [[37.57225144288841, 126.92073029528362], [37.52788423935813, 126.83024980839431]],
+                {"bubblingMouseEvents": true, "color": "#1F77B4", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#1F77B4", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_84032f7ea14be6ebe4c85b66c7e12ab6);
+        
+    
+        var popup_1781b1b4d5dd5f2d19cd7b4bb0272ff1 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5f48bb04bcb24b3cfa62397fea7510a7 = $(`<div id="html_5f48bb04bcb24b3cfa62397fea7510a7" style="width: 100.0%; height: 100.0%;">출발: DMC파크뷰자이아파트 127동 → 경유: 경인고속국도(신월IC)</div>`)[0];
+                popup_1781b1b4d5dd5f2d19cd7b4bb0272ff1.setContent(html_5f48bb04bcb24b3cfa62397fea7510a7);
+            
+        
+
+        poly_line_4cc8d5bbc6e17d9b725f5c535f0ad0f6.bindPopup(popup_1781b1b4d5dd5f2d19cd7b4bb0272ff1)
+        ;
+
+        
+    
+    
+            var poly_line_74044048bced36354499bd02dc2c125a = L.polyline(
+                [[37.52788423935813, 126.83024980839431], [37.42801145529909, 126.41871412114102]],
+                {"bubblingMouseEvents": true, "color": "#1F77B4", "dashArray": "8, 12", "dashOffset": null, "fill": false, "fillColor": "#1F77B4", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_84032f7ea14be6ebe4c85b66c7e12ab6);
+        
+    
+        var popup_eb4b75cea492cf70632ccba9f9e32b60 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_877fa7133f99247250de6dc855bbdd17 = $(`<div id="html_877fa7133f99247250de6dc855bbdd17" style="width: 100.0%; height: 100.0%;">경유: 경인고속국도(신월IC) → 도착: 서해안조개광장</div>`)[0];
+                popup_eb4b75cea492cf70632ccba9f9e32b60.setContent(html_877fa7133f99247250de6dc855bbdd17);
+            
+        
+
+        poly_line_74044048bced36354499bd02dc2c125a.bindPopup(popup_eb4b75cea492cf70632ccba9f9e32b60)
+        ;
+
+        
+    
+    
+            var marker_2401499d9d65a9ea08044548a809a704 = L.marker(
+                [37.57225144288841, 126.92073029528362],
+                {
+}
+            ).addTo(map_84032f7ea14be6ebe4c85b66c7e12ab6);
+        
+    
+            var icon_845c660e59d9389acdd1023f6c0a754e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_83b4b00091e9f99f1ea6404a0d1c656c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9143146e4c9d1eefa6174757e5912080 = $(`<div id="html_9143146e4c9d1eefa6174757e5912080" style="width: 100.0%; height: 100.0%;">                 <b>🏠 출발지</b><br>                 건물명: DMC파크뷰자이아파트 127동<br>                 주소: 서울 서대문구 가재울미래로 2<br>                 경로 색상: <span style='color:#1F77B4'>●</span>                 </div>`)[0];
+                popup_83b4b00091e9f99f1ea6404a0d1c656c.setContent(html_9143146e4c9d1eefa6174757e5912080);
+            
+        
+
+        marker_2401499d9d65a9ea08044548a809a704.bindPopup(popup_83b4b00091e9f99f1ea6404a0d1c656c)
+        ;
+
+        
+    
+    
+            marker_2401499d9d65a9ea08044548a809a704.bindTooltip(
+                `<div>
+                     출발: DMC파크뷰자이아파트 127동
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_2401499d9d65a9ea08044548a809a704.setIcon(icon_845c660e59d9389acdd1023f6c0a754e);
+            
+    
+            var marker_c99c944259787840d90d429c5f311cb4 = L.marker(
+                [37.42801145529909, 126.41871412114102],
+                {
+}
+            ).addTo(map_84032f7ea14be6ebe4c85b66c7e12ab6);
+        
+    
+            var icon_836b9e721406c6651538742ef07377e0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flag-checkered",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_37591157285bc75dc9a2be047a5f0d74 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f94d06b186ffad3d215d4cca5c4cc691 = $(`<div id="html_f94d06b186ffad3d215d4cca5c4cc691" style="width: 100.0%; height: 100.0%;">                 <b>🏁 도착지</b><br>                 장소명: 서해안조개광장<br>                 주소: 인천 중구 마시란로 65<br>                 경로 색상: <span style='color:#1F77B4'>●</span>                 </div>`)[0];
+                popup_37591157285bc75dc9a2be047a5f0d74.setContent(html_f94d06b186ffad3d215d4cca5c4cc691);
+            
+        
+
+        marker_c99c944259787840d90d429c5f311cb4.bindPopup(popup_37591157285bc75dc9a2be047a5f0d74)
+        ;
+
+        
+    
+    
+            marker_c99c944259787840d90d429c5f311cb4.bindTooltip(
+                `<div>
+                     도착: 서해안조개광장
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_c99c944259787840d90d429c5f311cb4.setIcon(icon_836b9e721406c6651538742ef07377e0);
+            
+    
+            var poly_line_3cef78697ec61540e8fb1759ad1e4654 = L.polyline(
+                [[37.52353824175471, 126.83997888584256], [37.52788423935813, 126.83024980839431]],
+                {"bubblingMouseEvents": true, "color": "#AEC7E8", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#AEC7E8", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_84032f7ea14be6ebe4c85b66c7e12ab6);
+        
+    
+        var popup_1049843271e1bba60970ce5d5e3268f3 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1bb22a0dba1ae9b0f65c8ba27d33fd07 = $(`<div id="html_1bb22a0dba1ae9b0f65c8ba27d33fd07" style="width: 100.0%; height: 100.0%;">출발: 양천롯데캐슬1단지아파트 101동 → 경유: 경인고속국도(신월IC)</div>`)[0];
+                popup_1049843271e1bba60970ce5d5e3268f3.setContent(html_1bb22a0dba1ae9b0f65c8ba27d33fd07);
+            
+        
+
+        poly_line_3cef78697ec61540e8fb1759ad1e4654.bindPopup(popup_1049843271e1bba60970ce5d5e3268f3)
+        ;
+
+        
+    
+    
+            var poly_line_a6b0f5fdd81d20bd25f68e2d2185ad65 = L.polyline(
+                [[37.52788423935813, 126.83024980839431], [37.6580117266865, 127.127000828952]],
+                {"bubblingMouseEvents": true, "color": "#AEC7E8", "dashArray": "8, 12", "dashOffset": null, "fill": false, "fillColor": "#AEC7E8", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_84032f7ea14be6ebe4c85b66c7e12ab6);
+        
+    
+        var popup_eb484060272b423b46e7e60bbab4d98e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1d200d55a6677b4e8a3103c5bb3d86e8 = $(`<div id="html_1d200d55a6677b4e8a3103c5bb3d86e8" style="width: 100.0%; height: 100.0%;">경유: 경인고속국도(신월IC) → 도착: 별내동 카페거리</div>`)[0];
+                popup_eb484060272b423b46e7e60bbab4d98e.setContent(html_1d200d55a6677b4e8a3103c5bb3d86e8);
+            
+        
+
+        poly_line_a6b0f5fdd81d20bd25f68e2d2185ad65.bindPopup(popup_eb484060272b423b46e7e60bbab4d98e)
+        ;
+
+        
+    
+    
+            var marker_1ff9c633a45804f23f42891057d08071 = L.marker(
+                [37.52353824175471, 126.83997888584256],
+                {
+}
+            ).addTo(map_84032f7ea14be6ebe4c85b66c7e12ab6);
+        
+    
+            var icon_e9931300d3f9784b3a12e4ccc6f868d6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_361e9d92a674c51dd462997049e7f502 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_fa4da9acce080f85131edb1ac5c015d5 = $(`<div id="html_fa4da9acce080f85131edb1ac5c015d5" style="width: 100.0%; height: 100.0%;">                 <b>🏠 출발지</b><br>                 건물명: 양천롯데캐슬1단지아파트 101동<br>                 주소: 서울 양천구 오목로5길 19<br>                 경로 색상: <span style='color:#AEC7E8'>●</span>                 </div>`)[0];
+                popup_361e9d92a674c51dd462997049e7f502.setContent(html_fa4da9acce080f85131edb1ac5c015d5);
+            
+        
+
+        marker_1ff9c633a45804f23f42891057d08071.bindPopup(popup_361e9d92a674c51dd462997049e7f502)
+        ;
+
+        
+    
+    
+            marker_1ff9c633a45804f23f42891057d08071.bindTooltip(
+                `<div>
+                     출발: 양천롯데캐슬1단지아파트 101동
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_1ff9c633a45804f23f42891057d08071.setIcon(icon_e9931300d3f9784b3a12e4ccc6f868d6);
+            
+    
+            var marker_ac2d77fc61e78e129f90ae58bb2dca6d = L.marker(
+                [37.6580117266865, 127.127000828952],
+                {
+}
+            ).addTo(map_84032f7ea14be6ebe4c85b66c7e12ab6);
+        
+    
+            var icon_c4fda2ea9a3d45e1da5ecf7688dfe896 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flag-checkered",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_fba8fcde0def767754abeab324a70c4c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_08e8713de3c96c8a3498b5c68bf3f5c3 = $(`<div id="html_08e8713de3c96c8a3498b5c68bf3f5c3" style="width: 100.0%; height: 100.0%;">                 <b>🏁 도착지</b><br>                 장소명: 별내동 카페거리<br>                 주소: 경기 남양주시 별내동 946-7<br>                 경로 색상: <span style='color:#AEC7E8'>●</span>                 </div>`)[0];
+                popup_fba8fcde0def767754abeab324a70c4c.setContent(html_08e8713de3c96c8a3498b5c68bf3f5c3);
+            
+        
+
+        marker_ac2d77fc61e78e129f90ae58bb2dca6d.bindPopup(popup_fba8fcde0def767754abeab324a70c4c)
+        ;
+
+        
+    
+    
+            marker_ac2d77fc61e78e129f90ae58bb2dca6d.bindTooltip(
+                `<div>
+                     도착: 별내동 카페거리
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ac2d77fc61e78e129f90ae58bb2dca6d.setIcon(icon_c4fda2ea9a3d45e1da5ecf7688dfe896);
+            
+    
+            var poly_line_258021834c433156a409fec49cd2939b = L.polyline(
+                [[37.51252061085087, 126.83080330608189], [37.52788423935813, 126.83024980839431]],
+                {"bubblingMouseEvents": true, "color": "#FF7F0E", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FF7F0E", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_84032f7ea14be6ebe4c85b66c7e12ab6);
+        
+    
+        var popup_672d502ba357196133c7ce395fc847da = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_39f1aefe7c451a559dab804fe4a15db7 = $(`<div id="html_39f1aefe7c451a559dab804fe4a15db7" style="width: 100.0%; height: 100.0%;">출발: 신정이펜하우스3단지아파트 → 경유: 경인고속국도(신월IC)</div>`)[0];
+                popup_672d502ba357196133c7ce395fc847da.setContent(html_39f1aefe7c451a559dab804fe4a15db7);
+            
+        
+
+        poly_line_258021834c433156a409fec49cd2939b.bindPopup(popup_672d502ba357196133c7ce395fc847da)
+        ;
+
+        
+    
+    
+            var poly_line_a918daf0bb844cf10a36b70a447ec9bf = L.polyline(
+                [[37.52788423935813, 126.83024980839431], [37.79144074509299, 127.5252101432974]],
+                {"bubblingMouseEvents": true, "color": "#FF7F0E", "dashArray": "8, 12", "dashOffset": null, "fill": false, "fillColor": "#FF7F0E", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_84032f7ea14be6ebe4c85b66c7e12ab6);
+        
+    
+        var popup_5ce1be15322d0cabe23e182decee1612 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ff47fb14e8b5be178cf90d17362b8441 = $(`<div id="html_ff47fb14e8b5be178cf90d17362b8441" style="width: 100.0%; height: 100.0%;">경유: 경인고속국도(신월IC) → 도착: 남이섬</div>`)[0];
+                popup_5ce1be15322d0cabe23e182decee1612.setContent(html_ff47fb14e8b5be178cf90d17362b8441);
+            
+        
+
+        poly_line_a918daf0bb844cf10a36b70a447ec9bf.bindPopup(popup_5ce1be15322d0cabe23e182decee1612)
+        ;
+
+        
+    
+    
+            var marker_de476ab07f0a2f7e28e9be8ea83f1c28 = L.marker(
+                [37.51252061085087, 126.83080330608189],
+                {
+}
+            ).addTo(map_84032f7ea14be6ebe4c85b66c7e12ab6);
+        
+    
+            var icon_91cb2aaf1ffc31c05cf9d10a1644b414 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_dc78df3d2a4f461e5f3d7ce51c886a9a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3bfc587fd456c288a2a3c583e86e5bf4 = $(`<div id="html_3bfc587fd456c288a2a3c583e86e5bf4" style="width: 100.0%; height: 100.0%;">                 <b>🏠 출발지</b><br>                 건물명: 신정이펜하우스3단지아파트<br>                 주소: 서울 양천구 신정이펜1로 50<br>                 경로 색상: <span style='color:#FF7F0E'>●</span>                 </div>`)[0];
+                popup_dc78df3d2a4f461e5f3d7ce51c886a9a.setContent(html_3bfc587fd456c288a2a3c583e86e5bf4);
+            
+        
+
+        marker_de476ab07f0a2f7e28e9be8ea83f1c28.bindPopup(popup_dc78df3d2a4f461e5f3d7ce51c886a9a)
+        ;
+
+        
+    
+    
+            marker_de476ab07f0a2f7e28e9be8ea83f1c28.bindTooltip(
+                `<div>
+                     출발: 신정이펜하우스3단지아파트
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_de476ab07f0a2f7e28e9be8ea83f1c28.setIcon(icon_91cb2aaf1ffc31c05cf9d10a1644b414);
+            
+    
+            var marker_6cb343abdca074357b4f6ecfac46116f = L.marker(
+                [37.79144074509299, 127.5252101432974],
+                {
+}
+            ).addTo(map_84032f7ea14be6ebe4c85b66c7e12ab6);
+        
+    
+            var icon_86943a6b12643edc5ce90e33c5a88379 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flag-checkered",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_bf02e2fe898b6a343e74d2ddef1dca76 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a6e0e90438c63e01251bd76f02b0a6c3 = $(`<div id="html_a6e0e90438c63e01251bd76f02b0a6c3" style="width: 100.0%; height: 100.0%;">                 <b>🏁 도착지</b><br>                 장소명: 남이섬<br>                 주소: 강원특별자치도 춘천시 남산면 남이섬길 1<br>                 경로 색상: <span style='color:#FF7F0E'>●</span>                 </div>`)[0];
+                popup_bf02e2fe898b6a343e74d2ddef1dca76.setContent(html_a6e0e90438c63e01251bd76f02b0a6c3);
+            
+        
+
+        marker_6cb343abdca074357b4f6ecfac46116f.bindPopup(popup_bf02e2fe898b6a343e74d2ddef1dca76)
+        ;
+
+        
+    
+    
+            marker_6cb343abdca074357b4f6ecfac46116f.bindTooltip(
+                `<div>
+                     도착: 남이섬
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6cb343abdca074357b4f6ecfac46116f.setIcon(icon_86943a6b12643edc5ce90e33c5a88379);
+            
+    
+            var poly_line_29d22f420a8b8f2425adfcb8d72cb7b5 = L.polyline(
+                [[37.59506407334061, 126.963934052675], [37.52788423935813, 126.83024980839431]],
+                {"bubblingMouseEvents": true, "color": "#FFBB78", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFBB78", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_84032f7ea14be6ebe4c85b66c7e12ab6);
+        
+    
+        var popup_4f35cb04a299d26110e58cb21fdbc5af = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8d8f56af3e1d09199c045589680b18ae = $(`<div id="html_8d8f56af3e1d09199c045589680b18ae" style="width: 100.0%; height: 100.0%;">출발: 베네스트아파트 → 경유: 경인고속국도(신월IC)</div>`)[0];
+                popup_4f35cb04a299d26110e58cb21fdbc5af.setContent(html_8d8f56af3e1d09199c045589680b18ae);
+            
+        
+
+        poly_line_29d22f420a8b8f2425adfcb8d72cb7b5.bindPopup(popup_4f35cb04a299d26110e58cb21fdbc5af)
+        ;
+
+        
+    
+    
+            var poly_line_ab1225c7aebe80550c5fa292392daf00 = L.polyline(
+                [[37.52788423935813, 126.83024980839431], [37.42801145529909, 126.41871412114102]],
+                {"bubblingMouseEvents": true, "color": "#FFBB78", "dashArray": "8, 12", "dashOffset": null, "fill": false, "fillColor": "#FFBB78", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_84032f7ea14be6ebe4c85b66c7e12ab6);
+        
+    
+        var popup_15ec99705a9818266986d2595c6da91f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a86d899817834e71965a51d3e57dfa72 = $(`<div id="html_a86d899817834e71965a51d3e57dfa72" style="width: 100.0%; height: 100.0%;">경유: 경인고속국도(신월IC) → 도착: 서해안조개광장</div>`)[0];
+                popup_15ec99705a9818266986d2595c6da91f.setContent(html_a86d899817834e71965a51d3e57dfa72);
+            
+        
+
+        poly_line_ab1225c7aebe80550c5fa292392daf00.bindPopup(popup_15ec99705a9818266986d2595c6da91f)
+        ;
+
+        
+    
+    
+            var marker_49118f60dcc53e4bf965b355df776d98 = L.marker(
+                [37.59506407334061, 126.963934052675],
+                {
+}
+            ).addTo(map_84032f7ea14be6ebe4c85b66c7e12ab6);
+        
+    
+            var icon_f5463d6d871c39b9a4a04ebd75d11f61 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_fc4aa68a3529ecbe320521d23814252a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_434c0603c327ca612b286ffe1fd43b18 = $(`<div id="html_434c0603c327ca612b286ffe1fd43b18" style="width: 100.0%; height: 100.0%;">                 <b>🏠 출발지</b><br>                 건물명: 베네스트아파트<br>                 주소: 서울 종로구 자하문로40가길 6<br>                 경로 색상: <span style='color:#FFBB78'>●</span>                 </div>`)[0];
+                popup_fc4aa68a3529ecbe320521d23814252a.setContent(html_434c0603c327ca612b286ffe1fd43b18);
+            
+        
+
+        marker_49118f60dcc53e4bf965b355df776d98.bindPopup(popup_fc4aa68a3529ecbe320521d23814252a)
+        ;
+
+        
+    
+    
+            marker_49118f60dcc53e4bf965b355df776d98.bindTooltip(
+                `<div>
+                     출발: 베네스트아파트
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_49118f60dcc53e4bf965b355df776d98.setIcon(icon_f5463d6d871c39b9a4a04ebd75d11f61);
+            
+    
+            var marker_2da4ae0da6dbbe48a9a14f624ba58a15 = L.marker(
+                [37.42801145529909, 126.41871412114102],
+                {
+}
+            ).addTo(map_84032f7ea14be6ebe4c85b66c7e12ab6);
+        
+    
+            var icon_a7c48befd3c508d918c0f9e2ac038bcc = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flag-checkered",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_0bedbfa1c2689c05cf08d39b416c823d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_70d9868b58be0fe0ec46c7bd0229cb03 = $(`<div id="html_70d9868b58be0fe0ec46c7bd0229cb03" style="width: 100.0%; height: 100.0%;">                 <b>🏁 도착지</b><br>                 장소명: 서해안조개광장<br>                 주소: 인천 중구 마시란로 65<br>                 경로 색상: <span style='color:#FFBB78'>●</span>                 </div>`)[0];
+                popup_0bedbfa1c2689c05cf08d39b416c823d.setContent(html_70d9868b58be0fe0ec46c7bd0229cb03);
+            
+        
+
+        marker_2da4ae0da6dbbe48a9a14f624ba58a15.bindPopup(popup_0bedbfa1c2689c05cf08d39b416c823d)
+        ;
+
+        
+    
+    
+            marker_2da4ae0da6dbbe48a9a14f624ba58a15.bindTooltip(
+                `<div>
+                     도착: 서해안조개광장
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_2da4ae0da6dbbe48a9a14f624ba58a15.setIcon(icon_a7c48befd3c508d918c0f9e2ac038bcc);
+            
+    
+            var poly_line_c4992328f79e05e6a5f14d59eaa99cd1 = L.polyline(
+                [[37.51464489072024, 126.82687580072417], [37.52788423935813, 126.83024980839431]],
+                {"bubblingMouseEvents": true, "color": "#2CA02C", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#2CA02C", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_84032f7ea14be6ebe4c85b66c7e12ab6);
+        
+    
+        var popup_1d4c18d983e376e23a00ad91130999b0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6fb53272d2ebb3b0fcbf89955be4cac8 = $(`<div id="html_6fb53272d2ebb3b0fcbf89955be4cac8" style="width: 100.0%; height: 100.0%;">출발: 신정이펜하우스1단지아파트 → 경유: 경인고속국도(신월IC)</div>`)[0];
+                popup_1d4c18d983e376e23a00ad91130999b0.setContent(html_6fb53272d2ebb3b0fcbf89955be4cac8);
+            
+        
+
+        poly_line_c4992328f79e05e6a5f14d59eaa99cd1.bindPopup(popup_1d4c18d983e376e23a00ad91130999b0)
+        ;
+
+        
+    
+    
+            var poly_line_c7748cbb7d2a6b253c12b1dd8f5c48ff = L.polyline(
+                [[37.52788423935813, 126.83024980839431], [37.6580117266865, 127.127000828952]],
+                {"bubblingMouseEvents": true, "color": "#2CA02C", "dashArray": "8, 12", "dashOffset": null, "fill": false, "fillColor": "#2CA02C", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_84032f7ea14be6ebe4c85b66c7e12ab6);
+        
+    
+        var popup_8e172e1d29c9501192e3396a04094644 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5f478f51a0550f011226bc30aa1c3e1f = $(`<div id="html_5f478f51a0550f011226bc30aa1c3e1f" style="width: 100.0%; height: 100.0%;">경유: 경인고속국도(신월IC) → 도착: 별내동 카페거리</div>`)[0];
+                popup_8e172e1d29c9501192e3396a04094644.setContent(html_5f478f51a0550f011226bc30aa1c3e1f);
+            
+        
+
+        poly_line_c7748cbb7d2a6b253c12b1dd8f5c48ff.bindPopup(popup_8e172e1d29c9501192e3396a04094644)
+        ;
+
+        
+    
+    
+            var marker_347404f5fb8f9309296f772301f7f5fc = L.marker(
+                [37.51464489072024, 126.82687580072417],
+                {
+}
+            ).addTo(map_84032f7ea14be6ebe4c85b66c7e12ab6);
+        
+    
+            var icon_d87030fcaf740f1bc39db1dd85e47659 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b13662d1cab4dfda35a48814b7ebfea4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_90169a9271e6e2e6a8c3d98fe75192e6 = $(`<div id="html_90169a9271e6e2e6a8c3d98fe75192e6" style="width: 100.0%; height: 100.0%;">                 <b>🏠 출발지</b><br>                 건물명: 신정이펜하우스1단지아파트<br>                 주소: 서울 양천구 신정이펜1로 99<br>                 경로 색상: <span style='color:#2CA02C'>●</span>                 </div>`)[0];
+                popup_b13662d1cab4dfda35a48814b7ebfea4.setContent(html_90169a9271e6e2e6a8c3d98fe75192e6);
+            
+        
+
+        marker_347404f5fb8f9309296f772301f7f5fc.bindPopup(popup_b13662d1cab4dfda35a48814b7ebfea4)
+        ;
+
+        
+    
+    
+            marker_347404f5fb8f9309296f772301f7f5fc.bindTooltip(
+                `<div>
+                     출발: 신정이펜하우스1단지아파트
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_347404f5fb8f9309296f772301f7f5fc.setIcon(icon_d87030fcaf740f1bc39db1dd85e47659);
+            
+    
+            var marker_ede62d9275723fd98c7049630bca5229 = L.marker(
+                [37.6580117266865, 127.127000828952],
+                {
+}
+            ).addTo(map_84032f7ea14be6ebe4c85b66c7e12ab6);
+        
+    
+            var icon_27dd61da2324683823ee7da471fbe129 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flag-checkered",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_90905d9c7f77cf9fecf8832a0b6c7192 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_39b9510788812816df35081d3af53a01 = $(`<div id="html_39b9510788812816df35081d3af53a01" style="width: 100.0%; height: 100.0%;">                 <b>🏁 도착지</b><br>                 장소명: 별내동 카페거리<br>                 주소: 경기 남양주시 별내동 946-7<br>                 경로 색상: <span style='color:#2CA02C'>●</span>                 </div>`)[0];
+                popup_90905d9c7f77cf9fecf8832a0b6c7192.setContent(html_39b9510788812816df35081d3af53a01);
+            
+        
+
+        marker_ede62d9275723fd98c7049630bca5229.bindPopup(popup_90905d9c7f77cf9fecf8832a0b6c7192)
+        ;
+
+        
+    
+    
+            marker_ede62d9275723fd98c7049630bca5229.bindTooltip(
+                `<div>
+                     도착: 별내동 카페거리
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ede62d9275723fd98c7049630bca5229.setIcon(icon_27dd61da2324683823ee7da471fbe129);
+            
+    
+            var marker_c21df4715172db4f23b9966a706bbeb0 = L.marker(
+                [37.52788423935813, 126.83024980839431],
+                {
+}
+            ).addTo(map_84032f7ea14be6ebe4c85b66c7e12ab6);
+        
+    
+            var icon_fda780179e6a0390d4dcfa26811c0133 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "road",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+  "iconSize": [20, 20],
+}
+            );
+        
+    
+        var popup_94c3b38bda5725e9dc297b764f8fc090 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_aabafd8f1957b535bb401f83474e0756 = $(`<div id="html_aabafd8f1957b535bb401f83474e0756" style="width: 100.0%; height: 100.0%;">             <b>🛣️ 경유지</b><br>             도로명: 경인고속국도(신월IC)<br>             총 5개 경로 경유<br>             <small>주말 교통량이 많은 도로</small>             </div>`)[0];
+                popup_94c3b38bda5725e9dc297b764f8fc090.setContent(html_aabafd8f1957b535bb401f83474e0756);
+            
+        
+
+        marker_c21df4715172db4f23b9966a706bbeb0.bindPopup(popup_94c3b38bda5725e9dc297b764f8fc090)
+        ;
+
+        
+    
+    
+            marker_c21df4715172db4f23b9966a706bbeb0.bindTooltip(
+                `<div>
+                     경유지: 경인고속국도(신월IC)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_c21df4715172db4f23b9966a706bbeb0.setIcon(icon_fda780179e6a0390d4dcfa26811c0133);
+            
+</script>
+</html>

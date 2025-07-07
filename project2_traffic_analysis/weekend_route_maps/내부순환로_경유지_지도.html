@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_ad20a1bf27d0f30ee98fb0689d2f73f9 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+    <div style="position: fixed; 
+                top: 10px; right: 10px; width: 200px; height: auto; 
+                background-color: white; border:2px solid grey; z-index:9999; 
+                font-size:14px; padding: 10px">
+    <h4>내부순환로</h4>
+    <p><i class="fa fa-home" style="color:red"></i> 출발지 (5개)</p>
+    <p><i class="fa fa-road" style="color:orange"></i> 경유지</p>
+    <p><i class="fa fa-flag-checkered" style="color:blue"></i> 도착지 (5개)</p>
+    <hr>
+    <p><strong>실선:</strong> 출발→경유</p>
+    <p><strong>점선:</strong> 경유→도착</p>
+    <p><small>각 경로별로 다른 색상</small></p>
+    </div>
+    
+    
+            <div class="folium-map" id="map_ad20a1bf27d0f30ee98fb0689d2f73f9" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_ad20a1bf27d0f30ee98fb0689d2f73f9 = L.map(
+                "map_ad20a1bf27d0f30ee98fb0689d2f73f9",
+                {
+                    center: [37.61155286560014, 126.9968894410536],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 10,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_8d661603ddcbf2c4bb8bd332709f1ad5 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_8d661603ddcbf2c4bb8bd332709f1ad5.addTo(map_ad20a1bf27d0f30ee98fb0689d2f73f9);
+        
+    
+            var poly_line_6977416f02132a1304842a72372a14b8 = L.polyline(
+                [[37.65428493069629, 127.06560846150458], [37.61155286560014, 126.9968894410536]],
+                {"bubblingMouseEvents": true, "color": "#1F77B4", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#1F77B4", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_ad20a1bf27d0f30ee98fb0689d2f73f9);
+        
+    
+        var popup_57a4aa6024dde8de5db6f7fd87f4c335 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f0b11989c0ea41b43edad7abffe600dc = $(`<div id="html_f0b11989c0ea41b43edad7abffe600dc" style="width: 100.0%; height: 100.0%;">출발: 상계주공6단지아파트 → 경유: 내부순환로</div>`)[0];
+                popup_57a4aa6024dde8de5db6f7fd87f4c335.setContent(html_f0b11989c0ea41b43edad7abffe600dc);
+            
+        
+
+        poly_line_6977416f02132a1304842a72372a14b8.bindPopup(popup_57a4aa6024dde8de5db6f7fd87f4c335)
+        ;
+
+        
+    
+    
+            var poly_line_48ff669a64bd3e1bc780ab4e8c75a584 = L.polyline(
+                [[37.61155286560014, 126.9968894410536], [37.246138589609, 126.596768094707]],
+                {"bubblingMouseEvents": true, "color": "#1F77B4", "dashArray": "8, 12", "dashOffset": null, "fill": false, "fillColor": "#1F77B4", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_ad20a1bf27d0f30ee98fb0689d2f73f9);
+        
+    
+        var popup_0ac37dde2e2008639b4a5d588e97c154 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b00a5ccdec4c7fd8b012572218a4c1ec = $(`<div id="html_b00a5ccdec4c7fd8b012572218a4c1ec" style="width: 100.0%; height: 100.0%;">경유: 내부순환로 → 도착: 대부도</div>`)[0];
+                popup_0ac37dde2e2008639b4a5d588e97c154.setContent(html_b00a5ccdec4c7fd8b012572218a4c1ec);
+            
+        
+
+        poly_line_48ff669a64bd3e1bc780ab4e8c75a584.bindPopup(popup_0ac37dde2e2008639b4a5d588e97c154)
+        ;
+
+        
+    
+    
+            var marker_f7a2e97e180321fa09dcd7f9e5cfa834 = L.marker(
+                [37.65428493069629, 127.06560846150458],
+                {
+}
+            ).addTo(map_ad20a1bf27d0f30ee98fb0689d2f73f9);
+        
+    
+            var icon_a9fee0758757ea7424fe5590d2940832 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b73b490b2994bda01244e1183e80682b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8c39882a0a3850a9a5f917527666577c = $(`<div id="html_8c39882a0a3850a9a5f917527666577c" style="width: 100.0%; height: 100.0%;">                 <b>🏠 출발지</b><br>                 건물명: 상계주공6단지아파트<br>                 주소: 서울 노원구 동일로 1384<br>                 경로 색상: <span style='color:#1F77B4'>●</span>                 </div>`)[0];
+                popup_b73b490b2994bda01244e1183e80682b.setContent(html_8c39882a0a3850a9a5f917527666577c);
+            
+        
+
+        marker_f7a2e97e180321fa09dcd7f9e5cfa834.bindPopup(popup_b73b490b2994bda01244e1183e80682b)
+        ;
+
+        
+    
+    
+            marker_f7a2e97e180321fa09dcd7f9e5cfa834.bindTooltip(
+                `<div>
+                     출발: 상계주공6단지아파트
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f7a2e97e180321fa09dcd7f9e5cfa834.setIcon(icon_a9fee0758757ea7424fe5590d2940832);
+            
+    
+            var marker_f39ddcf369c610f29ec0685c6b3e6216 = L.marker(
+                [37.246138589609, 126.596768094707],
+                {
+}
+            ).addTo(map_ad20a1bf27d0f30ee98fb0689d2f73f9);
+        
+    
+            var icon_9e7910493631e679526f604ed12bcf2c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flag-checkered",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_179e2d4f6ec6179172db7d3ba4f26c8d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_324caac6179d5ddf6680089b94075e17 = $(`<div id="html_324caac6179d5ddf6680089b94075e17" style="width: 100.0%; height: 100.0%;">                 <b>🏁 도착지</b><br>                 장소명: 대부도<br>                 주소: 경기 안산시 단원구 대부동동<br>                 경로 색상: <span style='color:#1F77B4'>●</span>                 </div>`)[0];
+                popup_179e2d4f6ec6179172db7d3ba4f26c8d.setContent(html_324caac6179d5ddf6680089b94075e17);
+            
+        
+
+        marker_f39ddcf369c610f29ec0685c6b3e6216.bindPopup(popup_179e2d4f6ec6179172db7d3ba4f26c8d)
+        ;
+
+        
+    
+    
+            marker_f39ddcf369c610f29ec0685c6b3e6216.bindTooltip(
+                `<div>
+                     도착: 대부도
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f39ddcf369c610f29ec0685c6b3e6216.setIcon(icon_9e7910493631e679526f604ed12bcf2c);
+            
+    
+            var poly_line_d1ce6c2bb92a6687135339b0b6ba408b = L.polyline(
+                [[37.52346934345384, 126.84100055105003], [37.61155286560014, 126.9968894410536]],
+                {"bubblingMouseEvents": true, "color": "#AEC7E8", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#AEC7E8", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_ad20a1bf27d0f30ee98fb0689d2f73f9);
+        
+    
+        var popup_8920097fb149fe2c3d9dbc8be50b79fd = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_dd148016ffef9f4ed27d2478c247ac06 = $(`<div id="html_dd148016ffef9f4ed27d2478c247ac06" style="width: 100.0%; height: 100.0%;">출발: 양천롯데캐슬2단지아파트 → 경유: 내부순환로</div>`)[0];
+                popup_8920097fb149fe2c3d9dbc8be50b79fd.setContent(html_dd148016ffef9f4ed27d2478c247ac06);
+            
+        
+
+        poly_line_d1ce6c2bb92a6687135339b0b6ba408b.bindPopup(popup_8920097fb149fe2c3d9dbc8be50b79fd)
+        ;
+
+        
+    
+    
+            var poly_line_d7e27a48c09fc9c9850f362c17b3c418 = L.polyline(
+                [[37.61155286560014, 126.9968894410536], [38.19005288814373, 128.60409847805985]],
+                {"bubblingMouseEvents": true, "color": "#AEC7E8", "dashArray": "8, 12", "dashOffset": null, "fill": false, "fillColor": "#AEC7E8", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_ad20a1bf27d0f30ee98fb0689d2f73f9);
+        
+    
+        var popup_99758afb575b8c2a0de4ca886ed8b9f3 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_da96271d45c8b391c0b6bbf6e4dcbf99 = $(`<div id="html_da96271d45c8b391c0b6bbf6e4dcbf99" style="width: 100.0%; height: 100.0%;">경유: 내부순환로 → 도착: 속초해수욕장</div>`)[0];
+                popup_99758afb575b8c2a0de4ca886ed8b9f3.setContent(html_da96271d45c8b391c0b6bbf6e4dcbf99);
+            
+        
+
+        poly_line_d7e27a48c09fc9c9850f362c17b3c418.bindPopup(popup_99758afb575b8c2a0de4ca886ed8b9f3)
+        ;
+
+        
+    
+    
+            var marker_8326a32075c880d456700d9e24675e76 = L.marker(
+                [37.52346934345384, 126.84100055105003],
+                {
+}
+            ).addTo(map_ad20a1bf27d0f30ee98fb0689d2f73f9);
+        
+    
+            var icon_0b0de6319df11423daedccad401d6679 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_0151e6992e0ee53115cf11a51bd6ac91 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3eb4e6f8a7895b3c4eef7dda435affdf = $(`<div id="html_3eb4e6f8a7895b3c4eef7dda435affdf" style="width: 100.0%; height: 100.0%;">                 <b>🏠 출발지</b><br>                 건물명: 양천롯데캐슬2단지아파트<br>                 주소: 서울 양천구 오목로5길 20<br>                 경로 색상: <span style='color:#AEC7E8'>●</span>                 </div>`)[0];
+                popup_0151e6992e0ee53115cf11a51bd6ac91.setContent(html_3eb4e6f8a7895b3c4eef7dda435affdf);
+            
+        
+
+        marker_8326a32075c880d456700d9e24675e76.bindPopup(popup_0151e6992e0ee53115cf11a51bd6ac91)
+        ;
+
+        
+    
+    
+            marker_8326a32075c880d456700d9e24675e76.bindTooltip(
+                `<div>
+                     출발: 양천롯데캐슬2단지아파트
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_8326a32075c880d456700d9e24675e76.setIcon(icon_0b0de6319df11423daedccad401d6679);
+            
+    
+            var marker_d1b9a824cd83eb1bc341d50e420eb7a1 = L.marker(
+                [38.19005288814373, 128.60409847805985],
+                {
+}
+            ).addTo(map_ad20a1bf27d0f30ee98fb0689d2f73f9);
+        
+    
+            var icon_933d57ffe072a9f70f4389fdc2d2c571 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flag-checkered",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_31e00c069fc384d1084d2946215f0464 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1edeb89829ee70aa41cd9e8bd7a345af = $(`<div id="html_1edeb89829ee70aa41cd9e8bd7a345af" style="width: 100.0%; height: 100.0%;">                 <b>🏁 도착지</b><br>                 장소명: 속초해수욕장<br>                 주소: 강원특별자치도 속초시 해오름로 186<br>                 경로 색상: <span style='color:#AEC7E8'>●</span>                 </div>`)[0];
+                popup_31e00c069fc384d1084d2946215f0464.setContent(html_1edeb89829ee70aa41cd9e8bd7a345af);
+            
+        
+
+        marker_d1b9a824cd83eb1bc341d50e420eb7a1.bindPopup(popup_31e00c069fc384d1084d2946215f0464)
+        ;
+
+        
+    
+    
+            marker_d1b9a824cd83eb1bc341d50e420eb7a1.bindTooltip(
+                `<div>
+                     도착: 속초해수욕장
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d1b9a824cd83eb1bc341d50e420eb7a1.setIcon(icon_933d57ffe072a9f70f4389fdc2d2c571);
+            
+    
+            var poly_line_7bffa62d9f3bf7c6914908ee379f77d0 = L.polyline(
+                [[37.57231100730218, 126.98256850570353], [37.61155286560014, 126.9968894410536]],
+                {"bubblingMouseEvents": true, "color": "#FF7F0E", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FF7F0E", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_ad20a1bf27d0f30ee98fb0689d2f73f9);
+        
+    
+        var popup_e7f09f94ad4022f2adb2fb6f41e1915e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_bb77ac94083744788b43201bed593d9f = $(`<div id="html_bb77ac94083744788b43201bed593d9f" style="width: 100.0%; height: 100.0%;">출발: 종로1가대성스카이렉스주상복합아파트입주자대표회의 전기차충전소 → 경유: 내부순환로</div>`)[0];
+                popup_e7f09f94ad4022f2adb2fb6f41e1915e.setContent(html_bb77ac94083744788b43201bed593d9f);
+            
+        
+
+        poly_line_7bffa62d9f3bf7c6914908ee379f77d0.bindPopup(popup_e7f09f94ad4022f2adb2fb6f41e1915e)
+        ;
+
+        
+    
+    
+            var poly_line_cc1a43169d48d9b1adc9644745f9401b = L.polyline(
+                [[37.61155286560014, 126.9968894410536], [37.79144074509299, 127.5252101432974]],
+                {"bubblingMouseEvents": true, "color": "#FF7F0E", "dashArray": "8, 12", "dashOffset": null, "fill": false, "fillColor": "#FF7F0E", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_ad20a1bf27d0f30ee98fb0689d2f73f9);
+        
+    
+        var popup_b400e3e0df03fc61887799b254965c40 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1f8de8160228712ec170de0c2e07db22 = $(`<div id="html_1f8de8160228712ec170de0c2e07db22" style="width: 100.0%; height: 100.0%;">경유: 내부순환로 → 도착: 남이섬</div>`)[0];
+                popup_b400e3e0df03fc61887799b254965c40.setContent(html_1f8de8160228712ec170de0c2e07db22);
+            
+        
+
+        poly_line_cc1a43169d48d9b1adc9644745f9401b.bindPopup(popup_b400e3e0df03fc61887799b254965c40)
+        ;
+
+        
+    
+    
+            var marker_76a9e0ded86e7a9bc65e1046d0df9a29 = L.marker(
+                [37.57231100730218, 126.98256850570353],
+                {
+}
+            ).addTo(map_ad20a1bf27d0f30ee98fb0689d2f73f9);
+        
+    
+            var icon_496d24756f78bc60fc47c4cdc09b7385 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_5cd4c8491f9081187120c631ec74212b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_13126f6b9fac2d2505941647e7786dd6 = $(`<div id="html_13126f6b9fac2d2505941647e7786dd6" style="width: 100.0%; height: 100.0%;">                 <b>🏠 출발지</b><br>                 건물명: 종로1가대성스카이렉스주상복합아파트입주자대표회의 전기차충전소<br>                 주소: 서울 종로구 삼봉로 95<br>                 경로 색상: <span style='color:#FF7F0E'>●</span>                 </div>`)[0];
+                popup_5cd4c8491f9081187120c631ec74212b.setContent(html_13126f6b9fac2d2505941647e7786dd6);
+            
+        
+
+        marker_76a9e0ded86e7a9bc65e1046d0df9a29.bindPopup(popup_5cd4c8491f9081187120c631ec74212b)
+        ;
+
+        
+    
+    
+            marker_76a9e0ded86e7a9bc65e1046d0df9a29.bindTooltip(
+                `<div>
+                     출발: 종로1가대성스카이렉스주상복합아파트입주자대표회의 전기차충전소
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_76a9e0ded86e7a9bc65e1046d0df9a29.setIcon(icon_496d24756f78bc60fc47c4cdc09b7385);
+            
+    
+            var marker_2c50cc7a7f07ea9ef02e336278a4aea1 = L.marker(
+                [37.79144074509299, 127.5252101432974],
+                {
+}
+            ).addTo(map_ad20a1bf27d0f30ee98fb0689d2f73f9);
+        
+    
+            var icon_20fcf92c25cf4ca94267e71697ebab43 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flag-checkered",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_28c819e160b93fa002138fb7bf570682 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0489a7a82424c59d799569eccd188689 = $(`<div id="html_0489a7a82424c59d799569eccd188689" style="width: 100.0%; height: 100.0%;">                 <b>🏁 도착지</b><br>                 장소명: 남이섬<br>                 주소: 강원특별자치도 춘천시 남산면 남이섬길 1<br>                 경로 색상: <span style='color:#FF7F0E'>●</span>                 </div>`)[0];
+                popup_28c819e160b93fa002138fb7bf570682.setContent(html_0489a7a82424c59d799569eccd188689);
+            
+        
+
+        marker_2c50cc7a7f07ea9ef02e336278a4aea1.bindPopup(popup_28c819e160b93fa002138fb7bf570682)
+        ;
+
+        
+    
+    
+            marker_2c50cc7a7f07ea9ef02e336278a4aea1.bindTooltip(
+                `<div>
+                     도착: 남이섬
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_2c50cc7a7f07ea9ef02e336278a4aea1.setIcon(icon_20fcf92c25cf4ca94267e71697ebab43);
+            
+    
+            var poly_line_5fff2ff36ac5a65d0bbdf3d4a2eea928 = L.polyline(
+                [[37.56624478062903, 126.84895972005735], [37.61155286560014, 126.9968894410536]],
+                {"bubblingMouseEvents": true, "color": "#FFBB78", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFBB78", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_ad20a1bf27d0f30ee98fb0689d2f73f9);
+        
+    
+        var popup_a154b4f090354487c7e27b176a9bad5e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b821b62464ff5d7f61ddf154835972f3 = $(`<div id="html_b821b62464ff5d7f61ddf154835972f3" style="width: 100.0%; height: 100.0%;">출발: 강서한강자이아파트 → 경유: 내부순환로</div>`)[0];
+                popup_a154b4f090354487c7e27b176a9bad5e.setContent(html_b821b62464ff5d7f61ddf154835972f3);
+            
+        
+
+        poly_line_5fff2ff36ac5a65d0bbdf3d4a2eea928.bindPopup(popup_a154b4f090354487c7e27b176a9bad5e)
+        ;
+
+        
+    
+    
+            var poly_line_30e9dccc6449dc6cb77c7561ca1eae3b = L.polyline(
+                [[37.61155286560014, 126.9968894410536], [37.5455129166084, 127.22367994072208]],
+                {"bubblingMouseEvents": true, "color": "#FFBB78", "dashArray": "8, 12", "dashOffset": null, "fill": false, "fillColor": "#FFBB78", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_ad20a1bf27d0f30ee98fb0689d2f73f9);
+        
+    
+        var popup_b340f3e23aba74587ae2ef4dc022adf0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0143144321277369df98032881fa9060 = $(`<div id="html_0143144321277369df98032881fa9060" style="width: 100.0%; height: 100.0%;">경유: 내부순환로 → 도착: 스타필드 하남</div>`)[0];
+                popup_b340f3e23aba74587ae2ef4dc022adf0.setContent(html_0143144321277369df98032881fa9060);
+            
+        
+
+        poly_line_30e9dccc6449dc6cb77c7561ca1eae3b.bindPopup(popup_b340f3e23aba74587ae2ef4dc022adf0)
+        ;
+
+        
+    
+    
+            var marker_e080ce3e7613d1609cf6776c4e92167a = L.marker(
+                [37.56624478062903, 126.84895972005735],
+                {
+}
+            ).addTo(map_ad20a1bf27d0f30ee98fb0689d2f73f9);
+        
+    
+            var icon_02903fede9e8e38bb24913d347be3925 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_98051ba8f32b93ea74bf0bfd164d003c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0dee1fd7279e68bee9ebdf6391a87b73 = $(`<div id="html_0dee1fd7279e68bee9ebdf6391a87b73" style="width: 100.0%; height: 100.0%;">                 <b>🏠 출발지</b><br>                 건물명: 강서한강자이아파트<br>                 주소: 서울 강서구 양천로55길 55<br>                 경로 색상: <span style='color:#FFBB78'>●</span>                 </div>`)[0];
+                popup_98051ba8f32b93ea74bf0bfd164d003c.setContent(html_0dee1fd7279e68bee9ebdf6391a87b73);
+            
+        
+
+        marker_e080ce3e7613d1609cf6776c4e92167a.bindPopup(popup_98051ba8f32b93ea74bf0bfd164d003c)
+        ;
+
+        
+    
+    
+            marker_e080ce3e7613d1609cf6776c4e92167a.bindTooltip(
+                `<div>
+                     출발: 강서한강자이아파트
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e080ce3e7613d1609cf6776c4e92167a.setIcon(icon_02903fede9e8e38bb24913d347be3925);
+            
+    
+            var marker_db479b3a8cff85b4f096e420fc43b848 = L.marker(
+                [37.5455129166084, 127.22367994072208],
+                {
+}
+            ).addTo(map_ad20a1bf27d0f30ee98fb0689d2f73f9);
+        
+    
+            var icon_4ea6a3244497e7f85978c54587c95b8c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flag-checkered",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_3427029be0c4e05c718cec58ec5e3d9c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ac5cbf44177b282620c375f33640d78b = $(`<div id="html_ac5cbf44177b282620c375f33640d78b" style="width: 100.0%; height: 100.0%;">                 <b>🏁 도착지</b><br>                 장소명: 스타필드 하남<br>                 주소: 경기 하남시 미사대로 750<br>                 경로 색상: <span style='color:#FFBB78'>●</span>                 </div>`)[0];
+                popup_3427029be0c4e05c718cec58ec5e3d9c.setContent(html_ac5cbf44177b282620c375f33640d78b);
+            
+        
+
+        marker_db479b3a8cff85b4f096e420fc43b848.bindPopup(popup_3427029be0c4e05c718cec58ec5e3d9c)
+        ;
+
+        
+    
+    
+            marker_db479b3a8cff85b4f096e420fc43b848.bindTooltip(
+                `<div>
+                     도착: 스타필드 하남
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_db479b3a8cff85b4f096e420fc43b848.setIcon(icon_4ea6a3244497e7f85978c54587c95b8c);
+            
+    
+            var poly_line_50fcf6e236ca0747cc7326d8c113e5f0 = L.polyline(
+                [[37.67962236501131, 127.04652365173122], [37.61155286560014, 126.9968894410536]],
+                {"bubblingMouseEvents": true, "color": "#2CA02C", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#2CA02C", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_ad20a1bf27d0f30ee98fb0689d2f73f9);
+        
+    
+        var popup_b04a642eab6caac7965e223626510560 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_29abfcaf765293ae788e9703b3c40bee = $(`<div id="html_29abfcaf765293ae788e9703b3c40bee" style="width: 100.0%; height: 100.0%;">출발: 도봉래미안아파트 → 경유: 내부순환로</div>`)[0];
+                popup_b04a642eab6caac7965e223626510560.setContent(html_29abfcaf765293ae788e9703b3c40bee);
+            
+        
+
+        poly_line_50fcf6e236ca0747cc7326d8c113e5f0.bindPopup(popup_b04a642eab6caac7965e223626510560)
+        ;
+
+        
+    
+    
+            var poly_line_17288707fe766ba51c3dc9174964c101 = L.polyline(
+                [[37.61155286560014, 126.9968894410536], [37.5250415765605, 126.92589589473786]],
+                {"bubblingMouseEvents": true, "color": "#2CA02C", "dashArray": "8, 12", "dashOffset": null, "fill": false, "fillColor": "#2CA02C", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_ad20a1bf27d0f30ee98fb0689d2f73f9);
+        
+    
+        var popup_9ca17551bb7f5db59fecb408b1ee37e0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ef05e34c3a53058ce3cc12c7c6e57775 = $(`<div id="html_ef05e34c3a53058ce3cc12c7c6e57775" style="width: 100.0%; height: 100.0%;">경유: 내부순환로 → 도착: IFC몰</div>`)[0];
+                popup_9ca17551bb7f5db59fecb408b1ee37e0.setContent(html_ef05e34c3a53058ce3cc12c7c6e57775);
+            
+        
+
+        poly_line_17288707fe766ba51c3dc9174964c101.bindPopup(popup_9ca17551bb7f5db59fecb408b1ee37e0)
+        ;
+
+        
+    
+    
+            var marker_03960d63e5ad561657a8d235286142c2 = L.marker(
+                [37.67962236501131, 127.04652365173122],
+                {
+}
+            ).addTo(map_ad20a1bf27d0f30ee98fb0689d2f73f9);
+        
+    
+            var icon_e8e7801d270a25d96b4453cfe6e91cdf = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_fc3033bba6b997fc0c88d886abc3e6e9 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1a3b5c13092215b4605832baf04c5039 = $(`<div id="html_1a3b5c13092215b4605832baf04c5039" style="width: 100.0%; height: 100.0%;">                 <b>🏠 출발지</b><br>                 건물명: 도봉래미안아파트<br>                 주소: 서울 도봉구 도봉로170길 40<br>                 경로 색상: <span style='color:#2CA02C'>●</span>                 </div>`)[0];
+                popup_fc3033bba6b997fc0c88d886abc3e6e9.setContent(html_1a3b5c13092215b4605832baf04c5039);
+            
+        
+
+        marker_03960d63e5ad561657a8d235286142c2.bindPopup(popup_fc3033bba6b997fc0c88d886abc3e6e9)
+        ;
+
+        
+    
+    
+            marker_03960d63e5ad561657a8d235286142c2.bindTooltip(
+                `<div>
+                     출발: 도봉래미안아파트
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_03960d63e5ad561657a8d235286142c2.setIcon(icon_e8e7801d270a25d96b4453cfe6e91cdf);
+            
+    
+            var marker_ddd9569af77419e2b9b44f61c80e7417 = L.marker(
+                [37.5250415765605, 126.92589589473786],
+                {
+}
+            ).addTo(map_ad20a1bf27d0f30ee98fb0689d2f73f9);
+        
+    
+            var icon_aefa2bbabed59887c83abf5fbd65ca14 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flag-checkered",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_3933049761789ecf4d5b0847b7cd88e8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9a05e2be66ec7f7d55638377e598d0b4 = $(`<div id="html_9a05e2be66ec7f7d55638377e598d0b4" style="width: 100.0%; height: 100.0%;">                 <b>🏁 도착지</b><br>                 장소명: IFC몰<br>                 주소: 서울 영등포구 국제금융로 10<br>                 경로 색상: <span style='color:#2CA02C'>●</span>                 </div>`)[0];
+                popup_3933049761789ecf4d5b0847b7cd88e8.setContent(html_9a05e2be66ec7f7d55638377e598d0b4);
+            
+        
+
+        marker_ddd9569af77419e2b9b44f61c80e7417.bindPopup(popup_3933049761789ecf4d5b0847b7cd88e8)
+        ;
+
+        
+    
+    
+            marker_ddd9569af77419e2b9b44f61c80e7417.bindTooltip(
+                `<div>
+                     도착: IFC몰
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ddd9569af77419e2b9b44f61c80e7417.setIcon(icon_aefa2bbabed59887c83abf5fbd65ca14);
+            
+    
+            var marker_441c15780cd4ae4650b59bd52c7dbb1f = L.marker(
+                [37.61155286560014, 126.9968894410536],
+                {
+}
+            ).addTo(map_ad20a1bf27d0f30ee98fb0689d2f73f9);
+        
+    
+            var icon_10db7d2a7747fef38c1f72f88317a20d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "road",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+  "iconSize": [20, 20],
+}
+            );
+        
+    
+        var popup_92279a39f4aa348672b6f3c74ac70382 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5e6465a0fa6c4c5e4fe1d23aeaa9fd53 = $(`<div id="html_5e6465a0fa6c4c5e4fe1d23aeaa9fd53" style="width: 100.0%; height: 100.0%;">             <b>🛣️ 경유지</b><br>             도로명: 내부순환로<br>             총 5개 경로 경유<br>             <small>주말 교통량이 많은 도로</small>             </div>`)[0];
+                popup_92279a39f4aa348672b6f3c74ac70382.setContent(html_5e6465a0fa6c4c5e4fe1d23aeaa9fd53);
+            
+        
+
+        marker_441c15780cd4ae4650b59bd52c7dbb1f.bindPopup(popup_92279a39f4aa348672b6f3c74ac70382)
+        ;
+
+        
+    
+    
+            marker_441c15780cd4ae4650b59bd52c7dbb1f.bindTooltip(
+                `<div>
+                     경유지: 내부순환로
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_441c15780cd4ae4650b59bd52c7dbb1f.setIcon(icon_10db7d2a7747fef38c1f72f88317a20d);
+            
+</script>
+</html>

@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_aac3909172c24d0e42a88c52e42c2d81 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+    <div style="position: fixed; 
+                top: 10px; right: 10px; width: 200px; height: auto; 
+                background-color: white; border:2px solid grey; z-index:9999; 
+                font-size:14px; padding: 10px">
+    <h4>강변북로</h4>
+    <p><i class="fa fa-home" style="color:red"></i> 출발지 (5개)</p>
+    <p><i class="fa fa-road" style="color:orange"></i> 경유지</p>
+    <p><i class="fa fa-flag-checkered" style="color:blue"></i> 도착지 (5개)</p>
+    <hr>
+    <p><strong>실선:</strong> 출발→경유</p>
+    <p><strong>점선:</strong> 경유→도착</p>
+    <p><small>각 경로별로 다른 색상</small></p>
+    </div>
+    
+    
+            <div class="folium-map" id="map_aac3909172c24d0e42a88c52e42c2d81" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_aac3909172c24d0e42a88c52e42c2d81 = L.map(
+                "map_aac3909172c24d0e42a88c52e42c2d81",
+                {
+                    center: [37.51978422894464, 126.9722091044773],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 10,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_a8a125bd6767e2474f6e1b621189b98f = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_a8a125bd6767e2474f6e1b621189b98f.addTo(map_aac3909172c24d0e42a88c52e42c2d81);
+        
+    
+            var poly_line_e88b07469dd29c113b6ded2a1563a686 = L.polyline(
+                [[37.51817243109359, 126.92605313373396], [37.51978422894464, 126.9722091044773]],
+                {"bubblingMouseEvents": true, "color": "#1F77B4", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#1F77B4", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_aac3909172c24d0e42a88c52e42c2d81);
+        
+    
+        var popup_1ff70c3ad878522d7bd28aafb1dbeeed = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f6a0e18e178b8c9989a9f159f2cfa456 = $(`<div id="html_f6a0e18e178b8c9989a9f159f2cfa456" style="width: 100.0%; height: 100.0%;">출발: 여의도자이아파트 → 경유: 강변북로</div>`)[0];
+                popup_1ff70c3ad878522d7bd28aafb1dbeeed.setContent(html_f6a0e18e178b8c9989a9f159f2cfa456);
+            
+        
+
+        poly_line_e88b07469dd29c113b6ded2a1563a686.bindPopup(popup_1ff70c3ad878522d7bd28aafb1dbeeed)
+        ;
+
+        
+    
+    
+            var poly_line_f1149d118e6a28c74b741af175505db0 = L.polyline(
+                [[37.51978422894464, 126.9722091044773], [37.5292974433415, 127.06892112991]],
+                {"bubblingMouseEvents": true, "color": "#1F77B4", "dashArray": "8, 12", "dashOffset": null, "fill": false, "fillColor": "#1F77B4", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_aac3909172c24d0e42a88c52e42c2d81);
+        
+    
+        var popup_647e9c3187ff756509fffe2e61003cd1 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c751b795d502ec6990017cd75646d36b = $(`<div id="html_c751b795d502ec6990017cd75646d36b" style="width: 100.0%; height: 100.0%;">경유: 강변북로 → 도착: 뚝섬한강공원</div>`)[0];
+                popup_647e9c3187ff756509fffe2e61003cd1.setContent(html_c751b795d502ec6990017cd75646d36b);
+            
+        
+
+        poly_line_f1149d118e6a28c74b741af175505db0.bindPopup(popup_647e9c3187ff756509fffe2e61003cd1)
+        ;
+
+        
+    
+    
+            var marker_3c9cf6daf74c1338748aa672799fd319 = L.marker(
+                [37.51817243109359, 126.92605313373396],
+                {
+}
+            ).addTo(map_aac3909172c24d0e42a88c52e42c2d81);
+        
+    
+            var icon_1c88c0e8e58511e810bb80c77fd39b9e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_e7556a9e7de23d4407a760d996e10268 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c7d513f4daa729f06e1dee45f41cda53 = $(`<div id="html_c7d513f4daa729f06e1dee45f41cda53" style="width: 100.0%; height: 100.0%;">                 <b>🏠 출발지</b><br>                 건물명: 여의도자이아파트<br>                 주소: 서울 영등포구 여의동로3길 10<br>                 경로 색상: <span style='color:#1F77B4'>●</span>                 </div>`)[0];
+                popup_e7556a9e7de23d4407a760d996e10268.setContent(html_c7d513f4daa729f06e1dee45f41cda53);
+            
+        
+
+        marker_3c9cf6daf74c1338748aa672799fd319.bindPopup(popup_e7556a9e7de23d4407a760d996e10268)
+        ;
+
+        
+    
+    
+            marker_3c9cf6daf74c1338748aa672799fd319.bindTooltip(
+                `<div>
+                     출발: 여의도자이아파트
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_3c9cf6daf74c1338748aa672799fd319.setIcon(icon_1c88c0e8e58511e810bb80c77fd39b9e);
+            
+    
+            var marker_160f287c3525ec7d32d9ba5630ddc80a = L.marker(
+                [37.5292974433415, 127.06892112991],
+                {
+}
+            ).addTo(map_aac3909172c24d0e42a88c52e42c2d81);
+        
+    
+            var icon_014c902be135849549d044d2a5ab5e6d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flag-checkered",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_21f1c9b36ff05e74df422632557ef2e0 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_93ac7981edb85fc41d1458cafcbdfa52 = $(`<div id="html_93ac7981edb85fc41d1458cafcbdfa52" style="width: 100.0%; height: 100.0%;">                 <b>🏁 도착지</b><br>                 장소명: 뚝섬한강공원<br>                 주소: 서울 광진구 자양동 427-6<br>                 경로 색상: <span style='color:#1F77B4'>●</span>                 </div>`)[0];
+                popup_21f1c9b36ff05e74df422632557ef2e0.setContent(html_93ac7981edb85fc41d1458cafcbdfa52);
+            
+        
+
+        marker_160f287c3525ec7d32d9ba5630ddc80a.bindPopup(popup_21f1c9b36ff05e74df422632557ef2e0)
+        ;
+
+        
+    
+    
+            marker_160f287c3525ec7d32d9ba5630ddc80a.bindTooltip(
+                `<div>
+                     도착: 뚝섬한강공원
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_160f287c3525ec7d32d9ba5630ddc80a.setIcon(icon_014c902be135849549d044d2a5ab5e6d);
+            
+    
+            var poly_line_2e3fedd0cfa8916c1b66f3830549e90f = L.polyline(
+                [[37.50007720440028, 126.84831843546309], [37.51978422894464, 126.9722091044773]],
+                {"bubblingMouseEvents": true, "color": "#AEC7E8", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#AEC7E8", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_aac3909172c24d0e42a88c52e42c2d81);
+        
+    
+        var popup_a76456ec09aeb86e087d268eb6905473 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_bda87ba14096100168145778638e37bb = $(`<div id="html_bda87ba14096100168145778638e37bb" style="width: 100.0%; height: 100.0%;">출발: 개봉푸르지오아파트 관리사무소 → 경유: 강변북로</div>`)[0];
+                popup_a76456ec09aeb86e087d268eb6905473.setContent(html_bda87ba14096100168145778638e37bb);
+            
+        
+
+        poly_line_2e3fedd0cfa8916c1b66f3830549e90f.bindPopup(popup_a76456ec09aeb86e087d268eb6905473)
+        ;
+
+        
+    
+    
+            var poly_line_d1424b33799048d7d064cb18beee1441 = L.polyline(
+                [[37.51978422894464, 126.9722091044773], [37.5455129166084, 127.22367994072208]],
+                {"bubblingMouseEvents": true, "color": "#AEC7E8", "dashArray": "8, 12", "dashOffset": null, "fill": false, "fillColor": "#AEC7E8", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_aac3909172c24d0e42a88c52e42c2d81);
+        
+    
+        var popup_fdef1eec70a110adc81c5cf3566b0373 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1164276e5df1b3c92bfae37c6faddefb = $(`<div id="html_1164276e5df1b3c92bfae37c6faddefb" style="width: 100.0%; height: 100.0%;">경유: 강변북로 → 도착: 스타필드 하남</div>`)[0];
+                popup_fdef1eec70a110adc81c5cf3566b0373.setContent(html_1164276e5df1b3c92bfae37c6faddefb);
+            
+        
+
+        poly_line_d1424b33799048d7d064cb18beee1441.bindPopup(popup_fdef1eec70a110adc81c5cf3566b0373)
+        ;
+
+        
+    
+    
+            var marker_a54cffb043bef7475fa887b78c9d1f3e = L.marker(
+                [37.50007720440028, 126.84831843546309],
+                {
+}
+            ).addTo(map_aac3909172c24d0e42a88c52e42c2d81);
+        
+    
+            var icon_136e9a97b300011b914a5b4aad29fdcc = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9c5a6bee3e3fb5296ec9866e6ca2384b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7ce3aa429df912e2a8ed86985482a223 = $(`<div id="html_7ce3aa429df912e2a8ed86985482a223" style="width: 100.0%; height: 100.0%;">                 <b>🏠 출발지</b><br>                 건물명: 개봉푸르지오아파트 관리사무소<br>                 주소: 서울 구로구 남부순환로 775<br>                 경로 색상: <span style='color:#AEC7E8'>●</span>                 </div>`)[0];
+                popup_9c5a6bee3e3fb5296ec9866e6ca2384b.setContent(html_7ce3aa429df912e2a8ed86985482a223);
+            
+        
+
+        marker_a54cffb043bef7475fa887b78c9d1f3e.bindPopup(popup_9c5a6bee3e3fb5296ec9866e6ca2384b)
+        ;
+
+        
+    
+    
+            marker_a54cffb043bef7475fa887b78c9d1f3e.bindTooltip(
+                `<div>
+                     출발: 개봉푸르지오아파트 관리사무소
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a54cffb043bef7475fa887b78c9d1f3e.setIcon(icon_136e9a97b300011b914a5b4aad29fdcc);
+            
+    
+            var marker_611365aaee29edb65d63ee5e28fa5f49 = L.marker(
+                [37.5455129166084, 127.22367994072208],
+                {
+}
+            ).addTo(map_aac3909172c24d0e42a88c52e42c2d81);
+        
+    
+            var icon_ff8b16c4ed1ad78afb0b91c460ba4953 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flag-checkered",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9d5fb25e88fcd5b63e8ac8df1c49006a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d0277632685372410aec0fe66a934f33 = $(`<div id="html_d0277632685372410aec0fe66a934f33" style="width: 100.0%; height: 100.0%;">                 <b>🏁 도착지</b><br>                 장소명: 스타필드 하남<br>                 주소: 경기 하남시 미사대로 750<br>                 경로 색상: <span style='color:#AEC7E8'>●</span>                 </div>`)[0];
+                popup_9d5fb25e88fcd5b63e8ac8df1c49006a.setContent(html_d0277632685372410aec0fe66a934f33);
+            
+        
+
+        marker_611365aaee29edb65d63ee5e28fa5f49.bindPopup(popup_9d5fb25e88fcd5b63e8ac8df1c49006a)
+        ;
+
+        
+    
+    
+            marker_611365aaee29edb65d63ee5e28fa5f49.bindTooltip(
+                `<div>
+                     도착: 스타필드 하남
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_611365aaee29edb65d63ee5e28fa5f49.setIcon(icon_ff8b16c4ed1ad78afb0b91c460ba4953);
+            
+    
+            var poly_line_85e48147b4ada9027ce5ff9c1ee2c4c7 = L.polyline(
+                [[37.5731250223196, 126.806523004597], [37.51978422894464, 126.9722091044773]],
+                {"bubblingMouseEvents": true, "color": "#FF7F0E", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FF7F0E", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_aac3909172c24d0e42a88c52e42c2d81);
+        
+    
+        var popup_542ccc19ce5d5efbf3c7b41445639657 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_45e7e2c1bad04ae8208e3f390ac2173b = $(`<div id="html_45e7e2c1bad04ae8208e3f390ac2173b" style="width: 100.0%; height: 100.0%;">출발: 개화산동부센트레빌아파트 정문 → 경유: 강변북로</div>`)[0];
+                popup_542ccc19ce5d5efbf3c7b41445639657.setContent(html_45e7e2c1bad04ae8208e3f390ac2173b);
+            
+        
+
+        poly_line_85e48147b4ada9027ce5ff9c1ee2c4c7.bindPopup(popup_542ccc19ce5d5efbf3c7b41445639657)
+        ;
+
+        
+    
+    
+            var poly_line_2bf80943905e06aca34349f531e0f0a6 = L.polyline(
+                [[37.51978422894464, 126.9722091044773], [37.5328127891601, 127.315829778049]],
+                {"bubblingMouseEvents": true, "color": "#FF7F0E", "dashArray": "8, 12", "dashOffset": null, "fill": false, "fillColor": "#FF7F0E", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_aac3909172c24d0e42a88c52e42c2d81);
+        
+    
+        var popup_088b15374a63dad0d8682698d09b6af4 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d096b190d6fcae1c01616b02e111fc72 = $(`<div id="html_d096b190d6fcae1c01616b02e111fc72" style="width: 100.0%; height: 100.0%;">경유: 강변북로 → 도착: 두물머리</div>`)[0];
+                popup_088b15374a63dad0d8682698d09b6af4.setContent(html_d096b190d6fcae1c01616b02e111fc72);
+            
+        
+
+        poly_line_2bf80943905e06aca34349f531e0f0a6.bindPopup(popup_088b15374a63dad0d8682698d09b6af4)
+        ;
+
+        
+    
+    
+            var marker_861819faec2b6ec08f881fd43246f72a = L.marker(
+                [37.5731250223196, 126.806523004597],
+                {
+}
+            ).addTo(map_aac3909172c24d0e42a88c52e42c2d81);
+        
+    
+            var icon_9cd5e7951e7c2db14e6e1318f867b5e3 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d97c3f7777587eba4e76b9de7a39d4a2 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a8b4a768c3287cebbccb774dccd555ed = $(`<div id="html_a8b4a768c3287cebbccb774dccd555ed" style="width: 100.0%; height: 100.0%;">                 <b>🏠 출발지</b><br>                 건물명: 개화산동부센트레빌아파트 정문<br>                 주소: 서울 강서구 양천로3길 17<br>                 경로 색상: <span style='color:#FF7F0E'>●</span>                 </div>`)[0];
+                popup_d97c3f7777587eba4e76b9de7a39d4a2.setContent(html_a8b4a768c3287cebbccb774dccd555ed);
+            
+        
+
+        marker_861819faec2b6ec08f881fd43246f72a.bindPopup(popup_d97c3f7777587eba4e76b9de7a39d4a2)
+        ;
+
+        
+    
+    
+            marker_861819faec2b6ec08f881fd43246f72a.bindTooltip(
+                `<div>
+                     출발: 개화산동부센트레빌아파트 정문
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_861819faec2b6ec08f881fd43246f72a.setIcon(icon_9cd5e7951e7c2db14e6e1318f867b5e3);
+            
+    
+            var marker_43eba356240770cac41b1f8e090b21d4 = L.marker(
+                [37.5328127891601, 127.315829778049],
+                {
+}
+            ).addTo(map_aac3909172c24d0e42a88c52e42c2d81);
+        
+    
+            var icon_e07510e54c0a76b14d4f5705be581dc7 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flag-checkered",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_0523dcb57a25175160af2a8109dc125f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_013665e39bc29385f815e04d4ccb5880 = $(`<div id="html_013665e39bc29385f815e04d4ccb5880" style="width: 100.0%; height: 100.0%;">                 <b>🏁 도착지</b><br>                 장소명: 두물머리<br>                 주소: 경기 양평군 양서면 양수리<br>                 경로 색상: <span style='color:#FF7F0E'>●</span>                 </div>`)[0];
+                popup_0523dcb57a25175160af2a8109dc125f.setContent(html_013665e39bc29385f815e04d4ccb5880);
+            
+        
+
+        marker_43eba356240770cac41b1f8e090b21d4.bindPopup(popup_0523dcb57a25175160af2a8109dc125f)
+        ;
+
+        
+    
+    
+            marker_43eba356240770cac41b1f8e090b21d4.bindTooltip(
+                `<div>
+                     도착: 두물머리
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_43eba356240770cac41b1f8e090b21d4.setIcon(icon_e07510e54c0a76b14d4f5705be581dc7);
+            
+    
+            var poly_line_9fe15211c99e5a8c678fc066c1619805 = L.polyline(
+                [[37.472696010279, 126.873137033086], [37.51978422894464, 126.9722091044773]],
+                {"bubblingMouseEvents": true, "color": "#FFBB78", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFBB78", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_aac3909172c24d0e42a88c52e42c2d81);
+        
+    
+        var popup_298a65011ce97c65f946b8e4a6e7a593 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f1d746d0281b7f94e19952f758a503ec = $(`<div id="html_f1d746d0281b7f94e19952f758a503ec" style="width: 100.0%; height: 100.0%;">출발: 철산래미안자이아파트 게이트1 → 경유: 강변북로</div>`)[0];
+                popup_298a65011ce97c65f946b8e4a6e7a593.setContent(html_f1d746d0281b7f94e19952f758a503ec);
+            
+        
+
+        poly_line_9fe15211c99e5a8c678fc066c1619805.bindPopup(popup_298a65011ce97c65f946b8e4a6e7a593)
+        ;
+
+        
+    
+    
+            var poly_line_bddcbea6df04a2792e597456d1c95358 = L.polyline(
+                [[37.51978422894464, 126.9722091044773], [37.5707974563789, 126.977908555263]],
+                {"bubblingMouseEvents": true, "color": "#FFBB78", "dashArray": "8, 12", "dashOffset": null, "fill": false, "fillColor": "#FFBB78", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_aac3909172c24d0e42a88c52e42c2d81);
+        
+    
+        var popup_e877588ec9a90fac774c257010a8504d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_435b2afd732ac94b788e9dcfd10f96cd = $(`<div id="html_435b2afd732ac94b788e9dcfd10f96cd" style="width: 100.0%; height: 100.0%;">경유: 강변북로 → 도착: 교보문고 광화문점</div>`)[0];
+                popup_e877588ec9a90fac774c257010a8504d.setContent(html_435b2afd732ac94b788e9dcfd10f96cd);
+            
+        
+
+        poly_line_bddcbea6df04a2792e597456d1c95358.bindPopup(popup_e877588ec9a90fac774c257010a8504d)
+        ;
+
+        
+    
+    
+            var marker_6d10dcad094e49f61f39776bf1f97a6f = L.marker(
+                [37.472696010279, 126.873137033086],
+                {
+}
+            ).addTo(map_aac3909172c24d0e42a88c52e42c2d81);
+        
+    
+            var icon_bf09dfe34cb12268f2307cb8718b16b3 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_4c85495e178967fa97a7f187c1d6eb70 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_cff4c1c5f401ec3138bb6f62d3719a44 = $(`<div id="html_cff4c1c5f401ec3138bb6f62d3719a44" style="width: 100.0%; height: 100.0%;">                 <b>🏠 출발지</b><br>                 건물명: 철산래미안자이아파트 게이트1<br>                 주소: 경기 광명시 디지털로 56<br>                 경로 색상: <span style='color:#FFBB78'>●</span>                 </div>`)[0];
+                popup_4c85495e178967fa97a7f187c1d6eb70.setContent(html_cff4c1c5f401ec3138bb6f62d3719a44);
+            
+        
+
+        marker_6d10dcad094e49f61f39776bf1f97a6f.bindPopup(popup_4c85495e178967fa97a7f187c1d6eb70)
+        ;
+
+        
+    
+    
+            marker_6d10dcad094e49f61f39776bf1f97a6f.bindTooltip(
+                `<div>
+                     출발: 철산래미안자이아파트 게이트1
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6d10dcad094e49f61f39776bf1f97a6f.setIcon(icon_bf09dfe34cb12268f2307cb8718b16b3);
+            
+    
+            var marker_098074927efd51c34f65a465a3a274ba = L.marker(
+                [37.5707974563789, 126.977908555263],
+                {
+}
+            ).addTo(map_aac3909172c24d0e42a88c52e42c2d81);
+        
+    
+            var icon_f3520f2bc869f49a2eeb3b85586bdaa9 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flag-checkered",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_1fe8795cc584b66272703b6afcee7794 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_bcc5528d8d3d1364c4e265d7c154ddb3 = $(`<div id="html_bcc5528d8d3d1364c4e265d7c154ddb3" style="width: 100.0%; height: 100.0%;">                 <b>🏁 도착지</b><br>                 장소명: 교보문고 광화문점<br>                 주소: 서울 종로구 종로 1<br>                 경로 색상: <span style='color:#FFBB78'>●</span>                 </div>`)[0];
+                popup_1fe8795cc584b66272703b6afcee7794.setContent(html_bcc5528d8d3d1364c4e265d7c154ddb3);
+            
+        
+
+        marker_098074927efd51c34f65a465a3a274ba.bindPopup(popup_1fe8795cc584b66272703b6afcee7794)
+        ;
+
+        
+    
+    
+            marker_098074927efd51c34f65a465a3a274ba.bindTooltip(
+                `<div>
+                     도착: 교보문고 광화문점
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_098074927efd51c34f65a465a3a274ba.setIcon(icon_f3520f2bc869f49a2eeb3b85586bdaa9);
+            
+    
+            var poly_line_f4a51673a0b8434eda38dd07567dabd4 = L.polyline(
+                [[37.50989217282603, 126.95003946254063], [37.51978422894464, 126.9722091044773]],
+                {"bubblingMouseEvents": true, "color": "#2CA02C", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#2CA02C", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_aac3909172c24d0e42a88c52e42c2d81);
+        
+    
+        var popup_ae29c81ef5aa4405c198212efccafc2c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1db7ff460332c1e4a52c6aa14016c997 = $(`<div id="html_1db7ff460332c1e4a52c6aa14016c997" style="width: 100.0%; height: 100.0%;">출발: 본동삼성래미안아파트 → 경유: 강변북로</div>`)[0];
+                popup_ae29c81ef5aa4405c198212efccafc2c.setContent(html_1db7ff460332c1e4a52c6aa14016c997);
+            
+        
+
+        poly_line_f4a51673a0b8434eda38dd07567dabd4.bindPopup(popup_ae29c81ef5aa4405c198212efccafc2c)
+        ;
+
+        
+    
+    
+            var poly_line_40dd02f5cd58b6a35217add329ce987a = L.polyline(
+                [[37.51978422894464, 126.9722091044773], [37.7027845908093, 127.492218515753]],
+                {"bubblingMouseEvents": true, "color": "#2CA02C", "dashArray": "8, 12", "dashOffset": null, "fill": false, "fillColor": "#2CA02C", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_aac3909172c24d0e42a88c52e42c2d81);
+        
+    
+        var popup_5493f84b94ab88f67f1f5ba6efa3f3ae = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d498577a1160859efd067f82b7817228 = $(`<div id="html_d498577a1160859efd067f82b7817228" style="width: 100.0%; height: 100.0%;">경유: 강변북로 → 도착: 가평빠지 캠프통포레스트 수상레저</div>`)[0];
+                popup_5493f84b94ab88f67f1f5ba6efa3f3ae.setContent(html_d498577a1160859efd067f82b7817228);
+            
+        
+
+        poly_line_40dd02f5cd58b6a35217add329ce987a.bindPopup(popup_5493f84b94ab88f67f1f5ba6efa3f3ae)
+        ;
+
+        
+    
+    
+            var marker_340b19985cf1446841be4d1972fc4c2f = L.marker(
+                [37.50989217282603, 126.95003946254063],
+                {
+}
+            ).addTo(map_aac3909172c24d0e42a88c52e42c2d81);
+        
+    
+            var icon_4622024c61e9ccfd5a3c7c17b8a9959c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_7d7e84f100acde3f31bfbec78e286324 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d6e3600955ef4be4730ce409339239c3 = $(`<div id="html_d6e3600955ef4be4730ce409339239c3" style="width: 100.0%; height: 100.0%;">                 <b>🏠 출발지</b><br>                 건물명: 본동삼성래미안아파트<br>                 주소: 서울 동작구 매봉로 123<br>                 경로 색상: <span style='color:#2CA02C'>●</span>                 </div>`)[0];
+                popup_7d7e84f100acde3f31bfbec78e286324.setContent(html_d6e3600955ef4be4730ce409339239c3);
+            
+        
+
+        marker_340b19985cf1446841be4d1972fc4c2f.bindPopup(popup_7d7e84f100acde3f31bfbec78e286324)
+        ;
+
+        
+    
+    
+            marker_340b19985cf1446841be4d1972fc4c2f.bindTooltip(
+                `<div>
+                     출발: 본동삼성래미안아파트
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_340b19985cf1446841be4d1972fc4c2f.setIcon(icon_4622024c61e9ccfd5a3c7c17b8a9959c);
+            
+    
+            var marker_1d1ec14123454e7b1d7b691b6c74e0b2 = L.marker(
+                [37.7027845908093, 127.492218515753],
+                {
+}
+            ).addTo(map_aac3909172c24d0e42a88c52e42c2d81);
+        
+    
+            var icon_a078adf98e0605e912c814a0cf0f8a23 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flag-checkered",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_63c9cdb1fdb61f8a4cab0b03ba32e5ad = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_101880ebaffbfc00b562422cae8ca357 = $(`<div id="html_101880ebaffbfc00b562422cae8ca357" style="width: 100.0%; height: 100.0%;">                 <b>🏁 도착지</b><br>                 장소명: 가평빠지 캠프통포레스트 수상레저<br>                 주소: 경기 가평군 설악면 자잠로 377<br>                 경로 색상: <span style='color:#2CA02C'>●</span>                 </div>`)[0];
+                popup_63c9cdb1fdb61f8a4cab0b03ba32e5ad.setContent(html_101880ebaffbfc00b562422cae8ca357);
+            
+        
+
+        marker_1d1ec14123454e7b1d7b691b6c74e0b2.bindPopup(popup_63c9cdb1fdb61f8a4cab0b03ba32e5ad)
+        ;
+
+        
+    
+    
+            marker_1d1ec14123454e7b1d7b691b6c74e0b2.bindTooltip(
+                `<div>
+                     도착: 가평빠지 캠프통포레스트 수상레저
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_1d1ec14123454e7b1d7b691b6c74e0b2.setIcon(icon_a078adf98e0605e912c814a0cf0f8a23);
+            
+    
+            var marker_e2feb0221ccf4f0bcef28cb9e91b5e50 = L.marker(
+                [37.51978422894464, 126.9722091044773],
+                {
+}
+            ).addTo(map_aac3909172c24d0e42a88c52e42c2d81);
+        
+    
+            var icon_913ad667f15136f10b3d27e8d2d26ca1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "road",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+  "iconSize": [20, 20],
+}
+            );
+        
+    
+        var popup_5189a7ed19f9efdaf59be125e1652ea1 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d34cf2fe738ae8924b0fd7d541a1bf1a = $(`<div id="html_d34cf2fe738ae8924b0fd7d541a1bf1a" style="width: 100.0%; height: 100.0%;">             <b>🛣️ 경유지</b><br>             도로명: 강변북로<br>             총 5개 경로 경유<br>             <small>주말 교통량이 많은 도로</small>             </div>`)[0];
+                popup_5189a7ed19f9efdaf59be125e1652ea1.setContent(html_d34cf2fe738ae8924b0fd7d541a1bf1a);
+            
+        
+
+        marker_e2feb0221ccf4f0bcef28cb9e91b5e50.bindPopup(popup_5189a7ed19f9efdaf59be125e1652ea1)
+        ;
+
+        
+    
+    
+            marker_e2feb0221ccf4f0bcef28cb9e91b5e50.bindTooltip(
+                `<div>
+                     경유지: 강변북로
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e2feb0221ccf4f0bcef28cb9e91b5e50.setIcon(icon_913ad667f15136f10b3d27e8d2d26ca1);
+            
+</script>
+</html>
